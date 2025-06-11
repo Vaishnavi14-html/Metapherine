@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Metapherine Pvt Ltd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f0f9fb;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Utility for scroll animations */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between the image and text */
+}
+.logo-image {
+  height: 40px; /* Adjust the height as needed */
+  width: auto; /* Maintain aspect ratio */
+}
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #0074c4;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between links */
+}
+.nav-links a {
+  margin-left: 1.5rem;
+  font-weight: 600;
+  color: #0074c4;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.2s;
+}
+.nav-links a:hover {
+  background: #00b1ac;
+  color: #fff;
+  transform: translateY(-2px);
+}
+.nav-links .search-icon {
+  font-size: 20px; /* Adjust icon size */
+  color: #0074c4; /* Icon color */
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+.nav-links .search-icon:hover {
+  color: #00b1ac; /* Change color on hover */
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+    /* Carousel */
+    .carousel {
+  position: relative;
+  width: 100vw; /* Full width of the viewport */
+  height: 60vh; /* Set the height */
+  max-height: 500px; /* Optional: Limit the maximum height */
+  margin-top: 1rem; /* Add space between the header and the carousel */
+  overflow: hidden;
+  background: #8fc7d7;
+}
+.carousel img {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Start off to the right */
+  width: 100%; /* Each image fills the carousel width */
+  height: 100%; /* Each image fills the carousel height */
+  object-fit: cover;
+  opacity: 0;
+  transition: left 1s ease, opacity 1s ease;
+}
+.carousel img.active {
+  left: 0;
+  opacity: 1;
+}
+.carousel img.previous {
+  left: -100%;
+  opacity: 0;
+}
+.carousel-text {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  color: #fff; /* Make the text white for visibility */
+  font-weight: 700; /* Bold font */
+  font-size: 2rem; /* Increase font size */
+  text-align: center; /* Center the text */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Add shadow for better contrast */
+  max-width: 90%; /* Optional: Limit text width */
+}
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #0074c4;
+    }
+
+    /* About */
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 150px;
+      gap: 2rem;
+      align-items: center;
+    }
+    .about-logo img {
+      width: 100%;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    .about-logo img:hover {
+      opacity: 1;
+    }
+
+    /* Cards */
+    .cards-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      background: #e9f6f7;
+      padding: 3rem 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .card img { width: 100%; }
+    .card-content {
+      padding: 1.5rem;
+    }
+    .card-content h3 {
+      margin-bottom: 0.75rem;
+    }
+    .card-content a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0074c4;
+      transition: color 0.3s;
+    }
+    .card-content a:hover {
+      color: #00b1ac;
+    }
+
+    /* Contact & Form */
+    .contact-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .contact-info h3 {
+      margin-bottom: 1rem;
+      color: #0074c4;
+    }
+    form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    form input,
+    form textarea {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-size: 1rem;
+    }
+    form input:focus,
+    form textarea:focus {
+      border-color: #00b1ac;
+      box-shadow: 0 0 8px rgba(0,177,172,0.3);
+      outline: none;
+    }
+    textarea { grid-column: span 2; resize: vertical; height: 120px; }
+    label {
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    button {
+      grid-column: span 2;
+      justify-self: end;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 24px;
+      background: #00b1ac;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background: #008f85;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: #003f3d;
+      color: #ddd;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      transition: background 0.3s;
+    }
+    footer:hover {
+      background: #00574f;
+    }
+    .footer-col {
+      flex: 1 1 200px;
+    }
+    .footer-col h4 {
+      margin-bottom: 1rem;
+      color: #00b1ac;
+    }
+    .footer-col a {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #ddd;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover {
+      color: #00b1ac;
+    }
+    footer address {
+      font-style: normal;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /* Map */
+    .map {
+  width: 100%; /* Full width of the container */
+  height: 400px; /* Increased height for better visibility */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Add shadow for a polished look */
+}
+
+    /* Social Icons */
+    .social-icons {
+  display: flex;
+  gap: 1rem; /* Space between icons */
+}
+
+.social-icons .icon {
+  font-size: 24px; /* Adjust icon size */
+  color: #fff; /* Make icons white */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-icons .icon:hover {
+  transform: scale(1.2); /* Slight zoom effect on hover */
+  opacity: 0.8; /* Reduce opacity slightly on hover */
+}
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-section,
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+      textarea { grid-column: span 1; }
+      .nav-links {
+    flex-wrap: wrap; /* Wrap links on smaller screens */
+    justify-content: center; /* Center links */
+  }
+
+  .nav-links a {
+    margin-left: 0; /* Remove extra margin */
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .nav-links .search-icon {
+    font-size: 18px; /* Adjust icon size for smaller screens */
+  }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="fade-in-up">
+  <div class="logo">
+    <img src="./meta.png" alt="Logo" height="40">
+    <div class="logo-text">METAPHERINE</div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" class="search-icon">
+      <i class="fas fa-search"></i>
+    </a>
+  </div>
+</nav>
+
+  <!-- Carousel -->
+<section class="carousel fade-in-up">
+  <img src="https://media.istockphoto.com/id/823447756/photo/in-a-secure-high-level-research-laboratory-scientist-in-a-coverall-examines-petri-dish-under.jpg?s=612x612&w=0&k=20&c=5cYAHIUHY2QKGvcSx55dRQ48dvscQyzsLL6mUSRMd5M=" class="active" alt="">
+  <img src="https://media.istockphoto.com/id/1044227094/photo/female-stem-human-resources-team-in-science-lab.jpg?s=612x612&w=0&k=20&c=W6c5QCmeC2jGo764Zj5NEFUDu4VhIDpTv5xxd5KPOMY=" alt="">
+  <img src="https://media.istockphoto.com/id/949947128/photo/female-and-male-scientists-working-on-their-computers-in-big-modern-laboratory-various-shelves.jpg?s=612x612&w=0&k=20&c=k2V8r6wELXh2sg2xPpi0fUxp32H0mx0-7xHHwXx4PTU=" alt="">
+ 
+  <div class="carousel-text">
+   lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  </div>
+</section>
+
+  <!-- About -->
+  <section id="about" class="about-section fade-in-up">
+    <div class="about-text">
+      <h2>About Metapherine</h2>
+      <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p><strong>Read more...</strong></p>
+    </div>
+    <div class="about-logo">
+      <img src="https://media.istockphoto.com/id/2063818706/photo/3d-dna-icon-genetic-dna-medical-spiral-molecular-chemistry-physics-science-and-biochemistry.jpg?s=612x612&w=0&k=20&c=C73Yp8XpGuVQ982-hd55bkjdKPs7hdkvCYvV9o68Ic4=" alt="DNA Logo">
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="cards-section fade-in-up">
+    <div class="card">
+      <img src="https://media.istockphoto.com/id/1365131202/photo/young-asian-indian-good-looking-female-lab-technician.jpg?s=612x612&w=0&k=20&c=UwGUDgykRLlNl39ki-vi6aBBy4An8wiFqhm_ZRrSEeo=" alt="">
+      <div class="card-content">
+        <h3>Heading</h3>
+        <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <a href="#">Read more...</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://media.istockphoto.com/id/637078430/photo/scientist-inspecting-plants.jpg?s=612x612&w=0&k=20&c=Zjk8btOLGd2QgUyNu1-6Wa1UCkU-9JrGP8fHV4XRfmk=" alt="">
+      <div class="card-content">
+        <h3>Heading</h3>
+        <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <a href="#">Read more...</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://media.istockphoto.com/id/1273268406/photo/modern-building-in-tai-po-hong-kong.jpg?s=1024x1024&w=is&k=20&c=S8NLjAVYZ8eEXAl3x3Eikp2N_Ohh_r5Np-2SPTxY03o=" alt="">
+      <div class="card-content">
+        <h3>Heading</h3>
+        <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <a href="#">Read more...</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section fade-in-up">
+  <div class="contact-info">
+    <h3>Contact Us</h3>
+    <p>Have questions or want to collaborate? Send us a message and we’ll be in touch shortly.</p>
+    <iframe
+      class="map"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12000000!2d78.962883!3d20.593684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbf1b1b1b1b1b1%3A0x4b0b8f1b1b1b1b1b!2sIndia!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+  </div>
+  <form>
+    <input type="text" name="firstName" placeholder="First Name" required />
+    <input type="text" name="lastName" placeholder="Last Name" required />
+    <input type="text" name="company" placeholder="Company Name" />
+    <input type="email" name="email" placeholder="Email Address" required />
+    <textarea name="message" placeholder="Your Message"></textarea>
+    <label><input type="checkbox" required /> I accept the privacy policy</label>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+  <!-- Footer -->
+  <footer class="fade-in-up">
+  <div class="footer-col">
+    <img src="./meta2.png" alt="Logo" height="36">
+    <address>
+      Main road,<br>
+      high street,<br>
+      India<br>
+      <br>
+      Email: metapherine@gmail.com<br>
+      Contact: +91 1234567890
+    </address>
+  </div>
+  <div class="footer-col">
+    <h4>Quick Links</h4>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Connect</h4>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com" target="_blank" class="icon">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://www.facebook.com" target="_blank" class="icon">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="mailto:metapherine@gmail.com" class="icon">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    // Scroll-triggered animations
+    const faders = document.querySelectorAll('.fade-in-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    faders.forEach(el => observer.observe(el));
+
+    // Carousel logic
+     const slides = document.querySelectorAll('.carousel img');
+  let idx = 0;
+  function updateSlides() {
+    slides.forEach((s, i) => {
+      s.classList.remove('active','previous');
+      if (i === idx) s.classList.add('active');
+      else if (i === (idx - 1 + slides.length) % slides.length) s.classList.add('previous');
+    });
+  }
+  setInterval(() => {
+    idx = (idx + 1) % slides.length;
+    updateSlides();
+  }, 5000);
+  updateSlides();
+  </script>
+</body>
+</html>
